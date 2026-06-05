@@ -6,20 +6,46 @@ export default function About() {
   return (
     <section id="sobre" className="bg-bg py-16 md:py-24">
       <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-6 md:grid-cols-2 md:px-10 lg:px-16">
-        {/* Photo */}
+        {/* Photo — moldura com Ken Burns contínuo */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 30, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           viewport={{ once: true, margin: "-100px" }}
           className="relative mx-auto w-full max-w-md"
         >
-          <span className="absolute inset-x-4 bottom-8 top-12 -z-10 rounded-[3rem] accent-gradient opacity-30 blur-3xl" />
-          <img
-            src={FOUNDER_PHOTO}
-            alt={BRAND.founder}
-            className="relative z-10 mx-auto w-full max-w-sm object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.55)]"
+          {/* brilho cobre pulsando atrás */}
+          <motion.span
+            aria-hidden
+            className="absolute -inset-3 -z-10 rounded-[2.6rem] accent-gradient blur-3xl"
+            animate={{ opacity: [0.18, 0.4, 0.18], scale: [0.97, 1.02, 0.97] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
           />
+          {/* anel de luz girando lento */}
+          <motion.span
+            aria-hidden
+            className="absolute left-1/2 top-1/2 -z-10 h-[108%] w-[108%] -translate-x-1/2 -translate-y-1/2 rounded-[2.6rem]"
+            style={{
+              background:
+                "conic-gradient(from 0deg, transparent, rgba(233,195,156,0.22), transparent 55%)",
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+          />
+
+          <div className="relative aspect-[2/3] overflow-hidden rounded-[2.2rem] border border-stroke bg-surface">
+            <motion.img
+              src={FOUNDER_PHOTO}
+              alt={BRAND.founder}
+              className="h-full w-full object-cover object-top"
+              animate={{ scale: [1.05, 1.13, 1.05], y: ["0%", "-2.5%", "0%"] }}
+              transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+            />
+            {/* blend inferior com o fundo do site */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-bg to-transparent" />
+            {/* leve vinheta */}
+            <div className="pointer-events-none absolute inset-0 rounded-[2.2rem] shadow-[inset_0_0_80px_rgba(0,0,0,0.45)]" />
+          </div>
         </motion.div>
 
         {/* Text */}
