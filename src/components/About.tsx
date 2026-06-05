@@ -6,6 +6,7 @@ export default function About() {
   return (
     <section id="sobre" className="bg-bg py-16 md:py-24">
       <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-6 md:grid-cols-2 md:px-10 lg:px-16">
+        {/* Photo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -13,16 +14,15 @@ export default function About() {
           viewport={{ once: true, margin: "-100px" }}
           className="relative mx-auto w-full max-w-md"
         >
-          <span className="absolute inset-0 -z-10 translate-x-4 translate-y-4 rounded-[2rem] accent-gradient opacity-40 blur-2xl" />
-          <div className="overflow-hidden rounded-[2rem] border border-stroke bg-surface">
-            <img
-              src={FOUNDER_PHOTO}
-              alt={BRAND.founder}
-              className="h-full w-full object-cover"
-            />
-          </div>
+          <span className="absolute inset-x-4 bottom-8 top-12 -z-10 rounded-[3rem] accent-gradient opacity-30 blur-3xl" />
+          <img
+            src={FOUNDER_PHOTO}
+            alt={BRAND.founder}
+            className="relative z-10 mx-auto w-full max-w-sm object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.55)]"
+          />
         </motion.div>
 
+        {/* Text */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

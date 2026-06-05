@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 import { gsap } from "gsap";
 import { BRAND } from "../lib/data";
+import { LOGO_DARK } from "../lib/logo";
 
 const HLS_SRC =
   "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
@@ -138,9 +139,11 @@ export default function Hero() {
           {BRAND.tagline}
         </span>
 
-        <h1 className="name-reveal text-6xl md:text-8xl lg:text-9xl font-display italic leading-[0.9] tracking-tight text-text-primary mb-6">
-          {BRAND.name}
-        </h1>
+        <img
+          src={LOGO_DARK}
+          alt={`${BRAND.full} — ${BRAND.tagline}`}
+          className="name-reveal hero-logo mb-8"
+        />
 
         <p className="blur-in text-lg md:text-2xl text-text-primary/90 mb-6">
           Transformamos{" "}

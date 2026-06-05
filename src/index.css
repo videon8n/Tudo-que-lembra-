@@ -58,6 +58,33 @@ body {
   animation: scroll-down 1.5s ease-in-out infinite;
 }
 
+/* Logo da Lucravie com brilho (glow) cobre pulsante */
+.hero-logo {
+  width: clamp(240px, 44vw, 540px);
+  height: auto;
+  filter: drop-shadow(0 0 16px rgba(214, 150, 100, 0.45))
+    drop-shadow(0 0 42px rgba(214, 150, 100, 0.22));
+  animation: logo-glow 3.6s ease-in-out infinite;
+}
+
+@keyframes logo-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 14px rgba(214, 150, 100, 0.35))
+      drop-shadow(0 0 34px rgba(214, 150, 100, 0.18));
+  }
+  50% {
+    filter: drop-shadow(0 0 26px rgba(233, 195, 156, 0.7))
+      drop-shadow(0 0 70px rgba(214, 150, 100, 0.4));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo {
+    animation: none;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
