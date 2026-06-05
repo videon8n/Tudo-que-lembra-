@@ -21,6 +21,7 @@ export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("Início");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
@@ -50,18 +51,15 @@ export default function Hero() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from(".name-reveal", { opacity: 0, y: 50, duration: 1.2, delay: 0.1 });
-      tl.from(
-        ".blur-in",
-        { opacity: 0, filter: "blur(10px)", y: 20, duration: 1, stagger: 0.1 },
-        0.3
-      );
+      tl.from(".name-reveal", { opacity: 0, y: 40, duration: 1, delay: 0.1 });
+      tl.from(".blur-in", { opacity: 0, y: 16, duration: 0.8, stagger: 0.08 }, 0.25);
     }, heroRef);
     return () => ctx.revert();
   }, []);
 
-  const scrollTo = (href: string, label: string) => {
+  const go = (href: string, label: string) => {
     setActive(label);
+    setMenuOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -79,85 +77,128 @@ export default function Hero() {
       <div className="absolute inset-0 bg-black/20" />
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg to-transparent" />
 
-      <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 md:pt-6 px-4">
-        <div
-          className={`inline-flex items-center rounded-full backdrop-blur-md border border-white/10 bg-surface/80 px-2 py-2 transition-shadow ${
-            scrolled ? "shadow-md shadow-black/30" : ""
-          }`}
-        >
-          <a
-            href="#hero"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollTo("#hero", "Início");
-            }}
-            className="group relative grid h-9 w-9 place-items-center rounded-full transition-transform hover:scale-110"
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:pt-6">
+        <div className="mx-auto w-full max-w-[860px] md:w-auto md:max-w-none md:flex md:justify-center">
+          <div
+            className={`flex items-center justify-between gap-2 rounded-full border border-white/10 bg-surface/85 px-2 py-2 backdrop-blur-md transition-shadow md:inline-flex md:justify-start ${
+              scrolled ? "shadow-md shadow-black/30" : ""
+            }`}
           >
-            <span className="absolute inset-0 rounded-full accent-gradient" />
-            <span className="absolute inset-[2px] grid place-items-center rounded-full bg-bg">
-              <span className="font-display italic text-[13px] accent-text">LF</span>
-            </span>
-          </a>
-
-          <span className="w-px h-5 bg-stroke mx-1 hidden sm:block" />
-
-          {NAV.map((item) => (
             <a
-              key={item.label}
-              href={item.href}
+              href="#hero"
               onClick={(e) => {
                 e.preventDefault();
-                scrollTo(item.href, item.label);
+                go("#hero", "Início");
               }}
-              className={`text-xs sm:text-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 transition-colors ${
-                active === item.label
-                  ? "text-text-primary bg-stroke/50"
-                  : "text-muted hover:text-text-primary hover:bg-stroke/50"
-              }`}
+              className="group relative grid h-9 w-9 shrink-0 place-items-center rounded-full transition-transform hover:scale-110"
+              aria-label="Início"
             >
-              {item.label}
+              <span className="absolute inset-0 rounded-full accent-gradient" />
+              <span className="absolute inset-[2px] grid place-items-center rounded-full bg-bg">
+                <span className="font-display italic text-[13px] accent-text">LF</span>
+              </span>
             </a>
-          ))}
 
-          <span className="w-px h-5 bg-stroke mx-1 hidden sm:block" />
+            <div className="hidden items-center md:flex">
+              <span className="mx-1 h-5 w-px bg-stroke" />
+              {NAV.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    go(item.href, item.label);
+                  }}
+                  className={`whitespace-nowrap rounded-full px-4 py-2 text-sm transition-colors ${
+                    active === item.label
+                      ? "bg-stroke/50 text-text-primary"
+                      : "text-muted hover:bg-stroke/50 hover:text-text-primary"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
+              <span className="mx-1 h-5 w-px bg-stroke" />
+              <a
+                href={BRAND.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative whitespace-nowrap rounded-full text-sm"
+              >
+                <span className="absolute inset-[-2px] rounded-full accent-gradient opacity-0 transition-opacity group-hover:opacity-100" />
+                <span className="relative flex items-center gap-1 rounded-full bg-surface px-4 py-2 text-text-primary">
+                  Fale comigo <span aria-hidden>↗</span>
+                </span>
+              </a>
+            </div>
 
-          <a
-            href={BRAND.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative text-xs sm:text-sm rounded-full"
-          >
-            <span className="absolute inset-[-2px] rounded-full accent-gradient opacity-0 transition-opacity group-hover:opacity-100" />
-            <span className="relative flex items-center gap-1 rounded-full bg-surface backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 text-text-primary">
-              Fale comigo <span aria-hidden>↗</span>
-            </span>
-          </a>
+            <button
+              onClick={() => setMenuOpen((v) => !v)}
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-text-primary md:hidden"
+              aria-label="Menu"
+              aria-expanded={menuOpen}
+            >
+              <span className="relative block h-3 w-5">
+                <span className={`absolute left-0 block h-[2px] w-5 bg-current transition-all ${menuOpen ? "top-1.5 rotate-45" : "top-0"}`} />
+                <span className={`absolute left-0 top-1.5 block h-[2px] w-5 bg-current transition-opacity ${menuOpen ? "opacity-0" : "opacity-100"}`} />
+                <span className={`absolute left-0 block h-[2px] w-5 bg-current transition-all ${menuOpen ? "top-1.5 -rotate-45" : "top-3"}`} />
+              </span>
+            </button>
+          </div>
+
+          {menuOpen && (
+            <div className="mt-2 grid gap-1 rounded-2xl border border-white/10 bg-surface/95 p-2 backdrop-blur-md md:hidden">
+              {NAV.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    go(item.href, item.label);
+                  }}
+                  className="rounded-xl px-4 py-3 text-sm text-text-primary hover:bg-stroke/50"
+                >
+                  {item.label}
+                </a>
+              ))}
+              <a
+                href={BRAND.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 rounded-xl accent-gradient px-4 py-3 text-center text-sm font-semibold text-bg"
+              >
+                Fale comigo no WhatsApp ↗
+              </a>
+            </div>
+          )}
         </div>
       </nav>
 
+      {/* Hero content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-        <span className="blur-in text-xs text-muted uppercase tracking-[0.3em] mb-8">
+        <span className="blur-in mb-6 text-xs uppercase tracking-[0.3em] text-muted">
           {BRAND.tagline}
         </span>
 
         <img
           src={LOGO_DARK}
           alt={`${BRAND.full} — ${BRAND.tagline}`}
-          className="name-reveal hero-logo mb-8"
+          className="name-reveal hero-logo mb-7"
         />
 
-        <p className="blur-in text-lg md:text-2xl text-text-primary/90 mb-6">
+        <p className="blur-in mb-6 text-lg text-text-primary/90 md:text-2xl">
           Transformamos{" "}
           <span
             key={wordIndex}
-            className="font-display italic accent-text animate-role-fade-in inline-block"
+            className="animate-role-fade-in inline-block font-display italic accent-text"
           >
             {WORDS[wordIndex]}
           </span>{" "}
           em lucro.
         </p>
 
-        <p className="blur-in text-sm md:text-base text-muted max-w-md mb-12">
+        <p className="blur-in mb-10 max-w-md text-sm text-muted md:text-base">
           Terceirização financeira (BPO), consultoria e treinamentos para
           transformar negócios desorganizados em empresas lucrativas.
         </p>
@@ -167,23 +208,21 @@ export default function Hero() {
             href="#servicos"
             onClick={(e) => {
               e.preventDefault();
-              scrollTo("#servicos", "Serviços");
+              go("#servicos", "Serviços");
             }}
-            className="group relative rounded-full text-sm px-7 py-3.5 transition-transform hover:scale-105"
+            className="group relative rounded-full px-7 py-3.5 text-sm transition-transform hover:scale-105"
           >
             <span className="absolute inset-0 rounded-full bg-text-primary transition-opacity group-hover:opacity-0" />
             <span className="absolute inset-0 rounded-full accent-gradient opacity-0 transition-opacity group-hover:opacity-100" />
             <span className="absolute inset-[2px] rounded-full bg-bg opacity-0 transition-opacity group-hover:opacity-100" />
-            <span className="relative text-bg transition-colors group-hover:text-text-primary">
-              Ver serviços
-            </span>
+            <span className="relative text-bg transition-colors group-hover:text-text-primary">Ver serviços</span>
           </a>
 
           <a
             href={BRAND.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative rounded-full text-sm px-7 py-3.5 transition-transform hover:scale-105"
+            className="group relative rounded-full px-7 py-3.5 text-sm transition-transform hover:scale-105"
           >
             <span className="absolute inset-0 rounded-full border-2 border-stroke transition-opacity group-hover:opacity-0" />
             <span className="absolute inset-0 rounded-full accent-gradient opacity-0 transition-opacity group-hover:opacity-100" />
@@ -193,9 +232,10 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3">
-        <span className="text-xs text-muted uppercase tracking-[0.2em]">Role</span>
-        <span className="relative block w-px h-10 bg-stroke overflow-hidden">
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3">
+        <span className="text-xs uppercase tracking-[0.2em] text-muted">Role</span>
+        <span className="relative block h-10 w-px overflow-hidden bg-stroke">
           <span className="absolute inset-0 accent-gradient animate-scroll-down" />
         </span>
       </div>

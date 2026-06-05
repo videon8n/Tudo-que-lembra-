@@ -20,9 +20,9 @@ export default function App() {
       <ScrollProgress />
       <motion.main
         className="relative"
-        initial={{ opacity: 0, filter: "blur(8px)" }}
-        animate={isLoading ? {} : { opacity: 1, filter: "blur(0px)" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={isLoading ? {} : { opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <Hero />
         <Services />
