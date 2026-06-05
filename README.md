@@ -4,6 +4,8 @@ Landing page single-page (tema escuro) para a **Lucravie Finanças — Gestão F
 
 Adaptada de um template de portfólio dark para o nicho de **gestão financeira empresarial**, mantendo toda a estrutura original (loading screen, hero com vídeo, grid de serviços, seção de conteúdos, metodologia com parallax, indicadores e rodapé) e adicionando uma seção **Sobre** com a foto da fundadora.
 
+**No ar em:** https://videon8n.github.io/tudo-que-lembra-/
+
 ## Stack
 React + Vite + TypeScript + Tailwind CSS + GSAP (ScrollTrigger) + Framer Motion + hls.js.
 
@@ -16,7 +18,7 @@ npm run preview  # serve o build
 ```
 
 ## Deploy (GitHub Pages)
-O workflow `.github/workflows/deploy-pages.yml` builda e publica automaticamente a cada push nesta branch. URL: https://videon8n.github.io/tudo-que-lembra-/
+O workflow `.github/workflows/deploy-pages.yml` builda e publica automaticamente a cada push nesta branch.
 
 ## Identidade visual
 - **Paleta:** azul-marinho profundo + **cobre / rosé-gold** (o "L" metálico do logo). Tokens em `src/index.css`.
