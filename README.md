@@ -7,5 +7,4 @@ Site no ar via GitHub Pages (deploy automático pela branch `main`).
 Código-fonte na branch **`claude/hyliox-research-cPYZg`**.
 
 ## Atualizações
-- Correções de layout: "Role" não sobrepõe os botões; título da Metodologia sempre à frente.
-- Fotos da Metodologia com acabamento e textos revelando como na abertura do site.
+- Foto da Tawana: versão de corpo inteiro (gerada a partir da foto real) com efeito Ken Burns + brilho cobre.
