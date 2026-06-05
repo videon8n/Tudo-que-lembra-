@@ -10,6 +10,7 @@ const HLS_SRC =
 const NAV = [
   { label: "Início", href: "#hero" },
   { label: "Serviços", href: "#servicos" },
+  { label: "Ferramentas", href: "#ferramentas" },
   { label: "Sobre", href: "#sobre" },
 ];
 

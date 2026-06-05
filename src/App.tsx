@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import LoadingScreen from "./components/LoadingScreen";
+import ScrollProgress from "./components/ScrollProgress";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
+import Calculators from "./components/Calculators";
 import About from "./components/About";
 import Journal from "./components/Journal";
 import Methodology from "./components/Methodology";
@@ -14,15 +17,22 @@ export default function App() {
   return (
     <>
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-      <main className="relative">
+      <ScrollProgress />
+      <motion.main
+        className="relative"
+        initial={{ opacity: 0, filter: "blur(8px)" }}
+        animate={isLoading ? {} : { opacity: 1, filter: "blur(0px)" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <Hero />
         <Services />
+        <Calculators />
         <About />
         <Journal />
         <Methodology />
         <Stats />
         <Contact />
-      </main>
+      </motion.main>
     </>
   );
 }
