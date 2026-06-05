@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Paleta Lucravie: azul-marinho profundo + cobre/rosé-gold */
+  --bg: 213 45% 5%;
+  --surface: 213 33% 9%;
+  --text: 36 30% 94%;
+  --muted: 213 12% 56%;
+  --stroke: 213 24% 15%;
+  --accent: 28 52% 70%;
+}
+
+* {
+  border-color: hsl(var(--stroke));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-bg text-text-primary font-body antialiased;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Gradiente de destaque cobre/rosé-gold (assinatura da marca) */
+.accent-gradient {
+  background-image: linear-gradient(90deg, #b0784f 0%, #e9c39c 100%);
+}
+
+.accent-text {
+  background-image: linear-gradient(90deg, #c08a5a 0%, #ecc9a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Borda animada com gradiente */
+.gradient-border {
+  background-image: linear-gradient(90deg, #b0784f, #e9c39c, #b0784f);
+  background-size: 200% 100%;
+  @apply animate-gradient-shift;
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 1.5s ease-in-out infinite;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--bg));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--stroke));
+  border-radius: 9999px;
+}
