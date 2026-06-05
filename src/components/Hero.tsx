@@ -176,7 +176,7 @@ export default function Hero() {
       </nav>
 
       {/* Hero content */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 pb-16 text-center">
         <span className="blur-in mb-6 text-xs uppercase tracking-[0.3em] text-muted">
           {BRAND.tagline}
         </span>
@@ -233,7 +233,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3">
+      <div className="pointer-events-none absolute bottom-6 left-1/2 z-[5] flex -translate-x-1/2 flex-col items-center gap-3 [@media(max-height:780px)]:hidden">
         <span className="text-xs uppercase tracking-[0.2em] text-muted">Role</span>
         <span className="relative block h-10 w-px overflow-hidden bg-stroke">
           <span className="absolute inset-0 accent-gradient animate-scroll-down" />
