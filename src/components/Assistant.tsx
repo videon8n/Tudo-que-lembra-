@@ -5,7 +5,17 @@ import { AI } from "../lib/ai";
 type Msg = { role: "user" | "assistant"; content: string };
 
 const WELCOME =
-  "Oi! Eu sou a assistente da Lucravie 👋 Posso ajudar com dúvidas sobre BPO financeiro, fluxo de caixa, precificação e como organizar o financeiro da sua empresa. O que você quer saber?";
+  "Oi! Eu sou a tawAi 👋 a assistente virtual inteligente da Lucravie. Posso ajudar com dúvidas sobre BPO financeiro, fluxo de caixa, precificação, pró-labore e como organizar o financeiro da sua empresa. O que você quer saber?";
+
+const OFFLINE =
+  "Estou quase pronta para conversar! 💛 Por enquanto, fale direto com a equipe da Lucravie no WhatsApp que respondemos rapidinho.";
+
+const MORPH = [
+  "48% 52% 55% 45% / 50% 45% 55% 50%",
+  "55% 45% 48% 52% / 45% 55% 50% 50%",
+  "45% 55% 52% 48% / 55% 50% 45% 55%",
+  "48% 52% 55% 45% / 50% 45% 55% 50%",
+];
 
 export default function Assistant() {
   const [open, setOpen] = useState(false);
@@ -24,30 +34,23 @@ export default function Assistant() {
     const next: Msg[] = [...messages, { role: "user", content: text }];
     setMessages(next);
     setInput("");
+
+    if (!AI.endpoint) {
+      setTimeout(() => setMessages((m) => [...m, { role: "assistant", content: OFFLINE }]), 400);
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch(AI.endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: next.filter((m, i) => !(i === 0 && m.role === "assistant")),
-        }),
+        body: JSON.stringify({ messages: next.filter((m, i) => !(i === 0 && m.role === "assistant")) }),
       });
       const data = await res.json();
-      setMessages((m) => [
-        ...m,
-        {
-          role: "assistant",
-          content:
-            data.reply ||
-            "Tive um problema para responder agora. Você pode falar direto com a gente no WhatsApp.",
-        },
-      ]);
+      setMessages((m) => [...m, { role: "assistant", content: data.reply || OFFLINE }]);
     } catch {
-      setMessages((m) => [
-        ...m,
-        { role: "assistant", content: "Estou sem conexão no momento. Fale com a gente no WhatsApp que respondemos rapidinho." },
-      ]);
+      setMessages((m) => [...m, { role: "assistant", content: OFFLINE }]);
     } finally {
       setLoading(false);
     }
@@ -55,20 +58,42 @@ export default function Assistant() {
 
   return (
     <>
-      {/* Botão flutuante */}
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-label="Abrir assistente"
-        className="fixed bottom-6 right-6 z-40 grid h-14 w-14 place-items-center rounded-full accent-gradient text-bg shadow-lg shadow-black/40 transition-transform hover:scale-110"
-      >
-        {open ? (
-          <span className="text-2xl leading-none">×</span>
-        ) : (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8 8.38 8.38 0 0 1 8.5-8.5 8.38 8.38 0 0 1 8.5 8.5z" />
-          </svg>
+      <div className="fixed bottom-5 right-5 z-50 sm:bottom-6 sm:right-6">
+        {!open && (
+          <motion.span
+            aria-hidden
+            className="absolute inset-0 -z-10 rounded-full accent-gradient"
+            animate={{ scale: [1, 1.45, 1], opacity: [0.5, 0, 0.5] }}
+            transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }}
+          />
         )}
-      </button>
+        <motion.button
+          onClick={() => setOpen((v) => !v)}
+          aria-label="tawAi — assistente virtual inteligente"
+          title="tawAi — assistente virtual inteligente"
+          className="relative grid h-16 w-16 place-items-center accent-gradient text-bg shadow-lg shadow-black/40"
+          animate={
+            open
+              ? { borderRadius: "9999px", scale: 1 }
+              : { borderRadius: MORPH, scale: [1, 1.06, 1] }
+          }
+          transition={
+            open
+              ? { duration: 0.3 }
+              : { duration: 6, repeat: Infinity, ease: "easeInOut" }
+          }
+          whileHover={{ scale: 1.1 }}
+        >
+          {open ? (
+            <span className="text-2xl leading-none">×</span>
+          ) : (
+            <span className="flex flex-col items-center leading-none">
+              <span aria-hidden className="text-base">✦</span>
+              <span className="mt-0.5 font-display text-[13px] font-semibold italic">tawAi</span>
+            </span>
+          )}
+        </motion.button>
+      </div>
 
       <AnimatePresence>
         {open && (
@@ -77,20 +102,22 @@ export default function Assistant() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
             transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed bottom-24 right-4 z-40 flex h-[min(560px,75vh)] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-stroke bg-surface shadow-2xl shadow-black/50"
+            className="fixed bottom-24 right-4 z-50 flex h-[min(560px,75vh)] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-stroke bg-surface shadow-2xl shadow-black/50"
           >
-            {/* Header */}
             <div className="flex items-center gap-3 border-b border-stroke px-5 py-4">
-              <span className="grid h-9 w-9 place-items-center rounded-full accent-gradient">
-                <span className="font-display text-sm italic text-bg">LF</span>
-              </span>
+              <motion.span
+                className="grid h-9 w-9 place-items-center rounded-full accent-gradient text-bg"
+                animate={{ borderRadius: MORPH }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <span aria-hidden className="text-sm">✦</span>
+              </motion.span>
               <div>
-                <p className="font-display text-base text-text-primary">Assistente Lucravie</p>
-                <p className="text-[11px] text-muted">Tire suas dúvidas financeiras</p>
+                <p className="font-display text-base italic text-text-primary">tawAi</p>
+                <p className="text-[11px] text-muted">Assistente virtual inteligente</p>
               </div>
             </div>
 
-            {/* Mensagens */}
             <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
               {messages.map((m, i) => (
                 <div key={i} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
@@ -118,7 +145,6 @@ export default function Assistant() {
               )}
             </div>
 
-            {/* Input */}
             <div className="flex items-center gap-2 border-t border-stroke p-3">
               <input
                 value={input}

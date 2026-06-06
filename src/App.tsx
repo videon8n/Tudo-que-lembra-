@@ -11,7 +11,6 @@ import Methodology from "./components/Methodology";
 import Stats from "./components/Stats";
 import Contact from "./components/Contact";
 import Assistant from "./components/Assistant";
-import { AI } from "./lib/ai";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +34,7 @@ export default function App() {
         <Stats />
         <Contact />
       </motion.main>
-      {AI.endpoint && <Assistant />}
+      <Assistant />
     </>
   );
 }

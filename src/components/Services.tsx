@@ -67,7 +67,7 @@ export default function Services() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent" />
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 transition-opacity duration-500 group-hover:opacity-0">
+              <div className="absolute bottom-0 left-0 right-0 p-6 opacity-0 transition-opacity duration-500 md:opacity-100 md:group-hover:opacity-0">
                 <span className="text-xs uppercase tracking-[0.2em] accent-text">
                   {s.subtitle}
                 </span>
@@ -76,7 +76,7 @@ export default function Services() {
                 </h3>
               </div>
 
-              <div className="absolute inset-0 flex flex-col justify-end bg-bg/70 p-6 opacity-0 backdrop-blur-md transition-opacity duration-500 group-hover:opacity-100">
+              <div className="absolute inset-0 flex flex-col justify-end bg-bg/70 p-6 opacity-100 backdrop-blur-md transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100">
                 <span className="text-xs uppercase tracking-[0.2em] accent-text">
                   {s.subtitle}
                 </span>
