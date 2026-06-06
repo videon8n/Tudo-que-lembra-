@@ -18,12 +18,22 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
   @apply bg-bg text-text-primary font-body antialiased;
   margin: 0;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+#root {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Gradiente de destaque cobre/rosé-gold (assinatura da marca) */
