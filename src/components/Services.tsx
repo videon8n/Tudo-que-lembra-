@@ -67,7 +67,19 @@ export default function Services() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent" />
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 opacity-0 transition-opacity duration-500 md:opacity-100 md:group-hover:opacity-0">
+              {/* MOBILE: foto visível + texto no rodapé (sem desfoque cobrindo a imagem) */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg via-bg/80 to-transparent p-6 pt-16 md:hidden">
+                <span className="text-xs uppercase tracking-[0.2em] accent-text">
+                  {s.subtitle}
+                </span>
+                <h3 className="mt-1 text-2xl font-display italic text-text-primary">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-sm text-muted">{s.description}</p>
+              </div>
+
+              {/* DESKTOP — estado padrão: só o título */}
+              <div className="absolute bottom-0 left-0 right-0 hidden p-6 transition-opacity duration-500 md:block md:group-hover:opacity-0">
                 <span className="text-xs uppercase tracking-[0.2em] accent-text">
                   {s.subtitle}
                 </span>
@@ -76,7 +88,8 @@ export default function Services() {
                 </h3>
               </div>
 
-              <div className="absolute inset-0 flex flex-col justify-end bg-bg/70 p-6 opacity-100 backdrop-blur-md transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100">
+              {/* DESKTOP — hover: painel com desfoque e descrição */}
+              <div className="absolute inset-0 hidden flex-col justify-end bg-bg/70 p-6 opacity-0 backdrop-blur-md transition-opacity duration-500 md:flex md:group-hover:opacity-100">
                 <span className="text-xs uppercase tracking-[0.2em] accent-text">
                   {s.subtitle}
                 </span>
