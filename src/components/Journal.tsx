@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
-import { POSTS, BRAND } from "../lib/data";
+import { POSTS } from "../lib/data";
+
+const BASE = import.meta.env.BASE_URL; // ex.: "/Tudo-que-lembra-/"
 
 export default function Journal() {
   return (
@@ -29,9 +31,7 @@ export default function Journal() {
           </div>
 
           <a
-            href={BRAND.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`${BASE}conteudo/`}
             className="group relative hidden md:inline-flex rounded-full text-sm"
           >
             <span className="absolute inset-[-1px] rounded-full accent-gradient opacity-0 transition-opacity group-hover:opacity-100" />
@@ -45,9 +45,7 @@ export default function Journal() {
           {POSTS.map((p, i) => (
             <motion.a
               key={p.title}
-              href={BRAND.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`${BASE}${p.slug}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.05 }}

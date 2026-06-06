@@ -61,6 +61,7 @@ export const SERVICES = [
 export const POSTS = [
   {
     title: "Pró-labore: como separar o dinheiro da empresa do seu",
+    slug: "conteudo/pro-labore/",
     image:
       "https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=600&q=80",
     read: "4 min",
@@ -68,6 +69,7 @@ export const POSTS = [
   },
   {
     title: "Fluxo de caixa: o termômetro que todo dono precisa ler",
+    slug: "conteudo/fluxo-de-caixa/",
     image:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80",
     read: "5 min",
@@ -75,6 +77,7 @@ export const POSTS = [
   },
   {
     title: "Precificação: por que vender mais nem sempre dá lucro",
+    slug: "conteudo/precificacao/",
     image:
       "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?auto=format&fit=crop&w=600&q=80",
     read: "6 min",
@@ -82,6 +85,7 @@ export const POSTS = [
   },
   {
     title: "BPO financeiro: quando terceirizar passa a valer a pena",
+    slug: "conteudo/bpo-financeiro/",
     image:
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80",
     read: "3 min",
