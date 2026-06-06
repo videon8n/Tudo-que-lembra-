@@ -7,5 +7,5 @@ Site no ar via GitHub Pages (deploy automático pela branch `main`).
 Código-fonte na branch **`claude/hyliox-research-cPYZg`**.
 
 ## Atualizações
-- Seção "Dicas financeiras" (home) com os 4 cards ligados às páginas reais de SEO.
-- Hub /conteudo/ com 4 artigos: BPO, Fluxo de Caixa, Precificação e Pró-labore.
+- Mobile: Metodologia responsiva (sem parallax no celular) e descrições dos serviços visíveis no toque.
+- tawAi: botão pulsante/morphing (cor da logo) sempre visível; assistente entra em ação ao configurar o Worker.
